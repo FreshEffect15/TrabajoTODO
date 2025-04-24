@@ -23,6 +23,16 @@ const SprintScreen = () => {
     loadSprintData();
   }, [id]);
 
+  const handleEditarSprint = async (sprintActualizado: ISprint) => {
+    try {
+      await updateSprintController(sprintActualizado);
+      setSprintData(sprintActualizado);
+      setModalSprintVisible(false);
+    } catch (error) {
+      console.error("❌ Error al editar el sprint:", error);
+    }
+  };
+
   const loadSprintData = async () => {
     try {
       const response = await axios.get<ISprint>(`${API_BASE_URL}/Sprints/${id}`);
